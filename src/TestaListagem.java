@@ -6,8 +6,8 @@ import java.sql.Statement;
 public class TestaListagem {
 
 	public static void main(String[] args) throws SQLException {
-		ConnectionFactory connectionFactory = new ConnectionFactory();
-		Connection connection = connectionFactory.recuperarConexao();
+		ConnectionFactory factory = new ConnectionFactory();
+		Connection connection = factory.recuperarConexao();
 
 		Statement stm = connection.createStatement();
 		// Essa lista vai me retornar um booleano, no caso da consulta.
