@@ -1,7 +1,7 @@
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class TestaListagem {
 
@@ -9,10 +9,10 @@ public class TestaListagem {
 		ConnectionFactory factory = new ConnectionFactory();
 		Connection connection = factory.recuperarConexao();
 
-		Statement stm = connection.createStatement();
+		PreparedStatement stm = connection.prepareStatement("SELECT ID, NOME, DESCRICAO FROM PRODUTO");
 		// Essa lista vai me retornar um booleano, no caso da consulta.
 		// Caso fosse del ou upd retornaria um boolean false.
-		stm.execute("SELECT ID, NOME, DESCRICAO FROM PRODUTO");
+		stm.execute();
 
 		ResultSet rst = stm.getResultSet();
 
