@@ -19,17 +19,16 @@ public class CategoriaDAO {
 	}
 
 	public List<Categoria> listar() throws SQLException {
-
 		List<Categoria> categorias = new ArrayList<>();
-
 		String sql = "SELECT ID, NOME FROM CATEGORIA";
-		
-		try (PreparedStatement psmt = connection.prepareStatement(sql)) {
-			psmt.execute();
 
-			try (ResultSet rst = psmt.getResultSet()) {
+		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+			pstm.execute();
+
+			try (ResultSet rst = pstm.getResultSet()) {
 				while (rst.next()) {
 					Categoria categoria = new Categoria(rst.getInt(1), rst.getString(2));
+
 					categorias.add(categoria);
 				}
 			}
@@ -41,24 +40,25 @@ public class CategoriaDAO {
 		Categoria ultima = null;
 		List<Categoria> categorias = new ArrayList<>();
 
-		String sql = "SELECT C.ID, C.NOME, P.ID, P.NOME, P.DESCRICAO FROM CATEGORIA C INNER JOIN PRODUTO P ON C.ID = P.CATEGORIA_ID";
+		String sql = "SELECT C.ID, C.NOME, P.ID, P.NOME, P.DESCRICAO " + "FROM CATEGORIA C "
+				+ "INNER JOIN PRODUTO P ON C.ID = P.CATEGORIA_ID";
 
-		try (PreparedStatement psmt = connection.prepareStatement(sql)) {
-			psmt.execute();
+		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+			pstm.execute();
 
-			try (ResultSet rst = psmt.getResultSet()) {
+			try (ResultSet rst = pstm.getResultSet()) {
 				while (rst.next()) {
 					if (ultima == null || !ultima.getNome().equals(rst.getString(2))) {
 						Categoria categoria = new Categoria(rst.getInt(1), rst.getString(2));
-						ultima = categoria;
+
 						categorias.add(categoria);
+						ultima = categoria;
 					}
 					Produto produto = new Produto(rst.getInt(3), rst.getString(4), rst.getString(5));
 					ultima.adicionar(produto);
 				}
 			}
+			return categorias;
 		}
-		return categorias;
 	}
-
 }

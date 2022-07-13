@@ -5,6 +5,7 @@ public class Produto {
 	private Integer id;
 	private String nome;
 	private String descricao;
+	private Integer categoriaId;
 
 	public Produto(String nome, String descricao) {
 		super();
@@ -16,6 +17,10 @@ public class Produto {
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
+	}
+	
+	public Integer getId() {
+		return id;
 	}
 
 	public void setId(Integer id) {
@@ -30,9 +35,16 @@ public class Produto {
 		return descricao;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("O produto Ã©: %d, %s, %s", this.id, this.nome, this.descricao);
+	public Integer getCategoriaId() {
+		return categoriaId;
 	}
 
+	public void setCategoriaId(Integer categoriaId) {
+		this.categoriaId = categoriaId;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("O produto é: %d, %s, %s", this.id, this.nome, this.descricao);
+	}
 }
