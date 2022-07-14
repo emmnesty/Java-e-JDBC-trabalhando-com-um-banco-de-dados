@@ -1,5 +1,4 @@
 package br.com.alura.jdbc.factory;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -20,7 +19,11 @@ public class ConnectionFactory {
 		this.dataSource = comboPooledDataSource;
 	}
 
-	public Connection recuperarConexao() throws SQLException {
-		return this.dataSource.getConnection();
+	public Connection recuperarConexao() {
+		try {
+			return this.dataSource.getConnection();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
